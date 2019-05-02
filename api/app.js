@@ -1,19 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-require('dotenv').config();
+const bodyParser = require('body-parser');
+const routes = require('./routes/index');
+const config = require('../config/index');
+const cors = require('cors');
 
 const app = express();
 
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use('/api', routes);
+app.use(cors());
 
-mongoose.connect(process.env.DB_URI, {
+mongoose.Promise = global.Promise;
+
+mongoose.connect(config.db, {
     useNewUrlParser: true
-}, () => {
+}/* , () => {
     console.log('Database connected');
-});
+} */);
 
-const PORT = process.env.PORT || 4500;
-app.listen(PORT, () => {
-    console.log(`App started on port ${PORT}`);
-});
+module.exports = app;

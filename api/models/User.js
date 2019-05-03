@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const { Schema } = mongoose;
+const {
+    Schema
+} = mongoose;
 
 const userSchema = new Schema({
     username: {
@@ -17,10 +19,6 @@ const userSchema = new Schema({
     isDeleted: {
         type: Boolean,
         default: false
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now()
     }
 })
 

@@ -16,9 +16,11 @@ app.use(cors());
 mongoose.Promise = global.Promise;
 
 mongoose.connect(config.db, {
-    useNewUrlParser: true
-}/* , () => {
-    console.log('Database connected');
-} */);
+        useNewUrlParser: true
+    }
+    /* , () => {
+        console.log('Database connected');
+    } */
+);
 
 module.exports = app;

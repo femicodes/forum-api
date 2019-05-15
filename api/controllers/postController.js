@@ -1,20 +1,15 @@
 const db = require('../models/index');
 
 exports.createPost = (req, res) => {
-    const {
-        title,
-        text,
-        link,
-        userId
-    } = req.body;
 
     // Validation Pending
 
     const post = new db.Post({
-        title,
-        text,
-        link,
-        _creator: userId
+        title: req.body.title,
+        postImage: req.file.path,
+        text: req.body.text,
+        link: req.body.link,
+        _creator: req.body.userId
     });
 
     post.save()
@@ -49,6 +44,7 @@ exports.getAllPosts = (req, res) => {
                         id: post._id,
                         creator: post._creator,
                         title: post.title,
+                        postImage: post.postImage,
                         link: post.link,
                         text: post.text,
                         dateCreated: post.createdAt,

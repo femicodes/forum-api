@@ -35,8 +35,9 @@ const upload = multer({
 // home route
 routes.get('/', basicController.home);
 
-// create an account
+// create an account and login
 routes.post('/signup', userController.signup);
+routes.post('/login', userController.login);
 
 //create and get all posts respectively
 routes.post('/post', upload.single('postImage'), postController.createPost);

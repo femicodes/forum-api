@@ -6,6 +6,7 @@ const basicController = require('../controllers/basicController');
 const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
 const commentController = require('../controllers/commentController');
+const checkAuth = require('../middleware/checkAuth');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -40,10 +41,10 @@ routes.post('/signup', userController.signup);
 routes.post('/login', userController.login);
 
 //create and get all posts respectively
-routes.post('/post', upload.single('postImage'), postController.createPost);
-routes.get('/allPosts', postController.getAllPosts);
+routes.post('/post', checkAuth, upload.single('postImage'), postController.createPost);
+routes.get('/allPosts', checkAuth, postController.getAllPosts);
 
 //create a comment
-routes.post('/postComment', commentController.postComment);
+routes.post('/postComment', checkAuth, commentController.postComment);
 
 module.exports = routes;

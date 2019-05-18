@@ -67,7 +67,8 @@ exports.likePost = (req, res) => {
     let user = req.params.user;
     const post = req.body.postId
     db.Post.findByIdAndUpdate(post,
-        { $push: { likes: user } })
+        { $addToSet: { likes: user } },
+        { new: true })
         .then(data => {
             res.status(200).json({
                 success: true,

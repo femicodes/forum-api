@@ -40,11 +40,15 @@ routes.get('/', basicController.home);
 routes.post('/signup', userController.signup);
 routes.post('/login', userController.login);
 
-//create and get all posts respectively
+// create and get all posts respectively
 routes.post('/post', checkAuth, upload.single('postImage'), postController.createPost);
 routes.get('/allPosts', checkAuth, postController.getAllPosts);
 
-//create a comment
+// create a comment
 routes.post('/postComment', checkAuth, commentController.postComment);
+
+// like a post
+routes.post('/like/:user', checkAuth, postController.likePost);
+
 
 module.exports = routes;

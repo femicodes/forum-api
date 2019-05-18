@@ -44,17 +44,36 @@ exports.getAllPosts = (req, res) => {
                         id: post._id,
                         creator: post._creator,
                         title: post.title,
+                        likes: post.likes,
+                        likesCount: post.likes.length,
                         postImage: post.postImage,
                         link: post.link,
                         text: post.text,
                         dateCreated: post.createdAt,
-                        comments: post._comments
+                        comments: post._comments,
+                        commentCount: post._comments.length
                     }
                 })
             }
             res.status(200).json(response);
         })
         .catch(err => res.status(500).json({
+            success: false,
+            message: err
+        }));
+};
+
+exports.likePost = (req, res) => {
+    let user = req.params.user;
+    const post = req.body.postId
+    db.Post.findByIdAndUpdate(post,
+        { $push: { likes: user } })
+        .then(data => {
+            res.status(200).json({
+                success: true,
+                data: data
+            })
+        }).catch(err => res.status(500).json({
             success: false,
             message: err
         }));

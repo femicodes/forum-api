@@ -23,6 +23,10 @@ const PostSchema = new Schema({
         type: Boolean,
         default: false
     },
+    likes: [{
+        type: Schema.ObjectId,
+        ref: 'User'
+    }],
     createdAt: {
         type: Date,
         default: Date.now()

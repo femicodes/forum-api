@@ -40,12 +40,14 @@ routes.get('/', basicController.home);
 routes.post('/signup', userController.signup);
 routes.post('/login', userController.login);
 
-// create and get all posts respectively
-routes.post('/post', checkAuth, upload.single('postImage'), postController.createPost);
-routes.get('/allPosts', checkAuth, postController.getAllPosts);
+// create a post
+routes.post('/post/:userId', checkAuth, upload.single('postImage'), postController.createPost);
+
+// get users posts
+routes.get('/posts/:userId', checkAuth, userController.getUserPosts);
 
 // create a comment
-routes.post('/postComment', checkAuth, commentController.postComment);
+routes.post('/postComment/:postId', checkAuth, commentController.postComment);
 
 // like a post
 routes.post('/like/:user', checkAuth, postController.likePost);

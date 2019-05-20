@@ -117,12 +117,19 @@ exports.getUserPosts = (req, res) => {
         .exec()
         .then(posts => {
             const postCount = posts.length;
-            if (posts.length == 0) {
+            if (postCount == 0) {
                 return res.status(200).json({
                     success: true,
                     message: 'You have no posts, yet.'
                 });
             }
-            return res.status(200).json({ success: true, })
+            return res.status(200).json({ success: true, message: `You have ${postCount} posts`, posts })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                success: false,
+                message: err
+            });
         })
 }

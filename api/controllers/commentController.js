@@ -1,11 +1,8 @@
 const db = require('../models/index');
 
 exports.postComment = (req, res) => {
-    const {
-        userId,
-        text,
-        postId
-    } = req.body;
+    const { userId, text } = req.body;
+    const postId = req.params.postId;
 
     const comment = new db.Comment({
         text,

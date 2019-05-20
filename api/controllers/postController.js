@@ -1,15 +1,12 @@
 const db = require('../models/index');
 
 exports.createPost = (req, res) => {
-
-    // Validation Pending
-
     const post = new db.Post({
         title: req.body.title,
         postImage: req.file.path,
         text: req.body.text,
         link: req.body.link,
-        _creator: req.body.userId
+        _creator: req.params.userId
     });
 
     post.save()
